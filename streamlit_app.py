@@ -281,21 +281,52 @@ try:
     cluster_profiles = df.groupby('Cluster')[numeric_features].mean()
     st.dataframe(cluster_profiles)
 
-    # Menambahkan definisi sifat tiap cluster
-    st.write("Definisi setiap Cluster:")
+    # Informasi Detil Tiap Cluster
+    st.subheader("Deskripsi Tiap Cluster")
 
-    # Deskripsi untuk setiap cluster berdasarkan profiling
-    for cluster_num in range(optimal_k):
-        st.write(f"Cluster {cluster_num}:")
-        if cluster_num == 0:
-            st.write("Pengguna dengan aktivitas transaksi rendah, namun penggunaan kartu kredit dan penarikan tunai tinggi. Kemungkinan besar menggunakan kartu kredit untuk menarik tunai dan membayar transaksi dengan uang tunai.")
-        elif cluster_num == 1:
-            st.write("Pengguna dengan aktivitas transaksi rendah dan pembayaran kartu kredit yang cenderung minimum atau sebagian kecil. Cenderung tidak memanfaatkan limit kartu kredit secara maksimal.")
-        elif cluster_num == 2:
-            st.write("Pengguna dengan aktivitas transaksi dan pembayaran yang tinggi, sering memanfaatkan cash advance dan menggunakan limit kartu kredit secara maksimal.")
-        else:
-            st.write("Deskripsi untuk cluster ini belum tersedia.")
+    # Deskripsi untuk Cluster 0
+    st.markdown("### 🟢 **Cluster 0 (Hijau)**")
+    st.write("""
+    **Deskripsi:**
+    - Pengguna dengan aktivitas transaksi yang cukup **tinggi**, baik dalam pembelian maupun penarikan tunai.
+    - Sering memanfaatkan kartu kredit untuk pembelian dan melakukan pembayaran menggunakan cicilan.
+    - Menggunakan **limit kartu kredit** secara optimal.
+    - Pembayaran dilakukan sebagian besar atau sepenuhnya tepat waktu.
 
+    **Komponen yang Berpengaruh:**
+    - **Komponen PC1:**
+    - `PURCHASES` (total pembelian)
+    - `ONEOFF_PURCHASES` (pembelian satu kali)
+    - `INSTALLMENTS_PURCHASES` (pembelian cicilan)
+    - `CREDIT_LIMIT` (batas kredit)
+    - `PAYMENTS` (pembayaran)
+    - `PRC_FULL_PAYMENT` (proporsi pembayaran penuh)
+    
+    - **Komponen PC2:**
+    - `BALANCE` (saldo tertunggak)
+    - `MINIMUM_PAYMENTS` (pembayaran minimum)
+    """)
+
+    # Deskripsi untuk Cluster 1
+    st.markdown("### 🟠 **Cluster 1 (Oranye)**")
+    st.write("""
+    **Deskripsi:**
+    - Pengguna dengan aktivitas transaksi **rendah**, meskipun memiliki kredit limit.
+    - Lebih cenderung menarik tunai (cash advance) dibanding melakukan pembelian.
+    - Melakukan pembayaran hanya sebagian kecil dari saldo kredit atau pembayaran minimum.
+    - Tidak memanfaatkan limit kartu kredit secara maksimal.
+
+    **Komponen yang Berpengaruh:**
+    - **Komponen PC1:**
+    - `CASH_ADVANCE` (penarikan tunai)
+    - `CASH_ADVANCE_FREQUENCY` (frekuensi penarikan tunai)
+    - `CREDIT_LIMIT` (batas kredit)
+    
+    - **Komponen PC2:**
+    - `BALANCE` (saldo tertunggak)
+    - `CASH_ADVANCE` (penarikan tunai)
+    - `MINIMUM_PAYMENTS` (pembayaran minimum)
+    """)
     # Prediksi Cluster untuk Input Baru
     st.header("🔮 Prediksi Cluster Baru")
     st.write("Masukkan nilai fitur untuk prediksi cluster:")
@@ -313,30 +344,29 @@ try:
     if st.button("Prediksi Cluster"):
         # Siapkan input untuk prediksi
         input_data = [input_features[feature] for feature in numeric_features]
-            
+        
         # Standarisasi input
         input_scaled = scaler.transform([input_data])
-            
+        
         # Prediksi cluster
         predicted_cluster = kmeans.predict(input_scaled)[0]
-            
+        
         st.success(f"Pelanggan diprediksi masuk ke Cluster {predicted_cluster}")
-            
-         # Tampilkan profil cluster terdekat
-        st.write("Profil Cluster Terdekat:")
-        st.dataframe(cluster_profiles.loc[predicted_cluster])
         
         # Keterangan sifat customer per cluster
         st.write(f"Deskripsi Sifat Customer untuk Cluster {predicted_cluster}:")
         
         if predicted_cluster == 0:
-            st.write("Pengguna dengan aktivitas transaksi rendah, namun penggunaan kartu kredit dan penarikan tunai tinggi. Kemungkinan besar menggunakan kartu kredit untuk menarik tunai dan membayar transaksi dengan uang tunai.")
+            st.write("Pengguna dengan aktivitas transaksi tinggi, memanfaatkan limit kartu kredit secara optimal, dan sering membayar penuh atau sebagian besar dari saldo kredit.")
         elif predicted_cluster == 1:
-            st.write("Pengguna dengan aktivitas transaksi rendah dan pembayaran kartu kredit yang cenderung minimum atau sebagian kecil. Cenderung tidak memanfaatkan limit kartu kredit secara maksimal.")
-        elif predicted_cluster == 2:
-            st.write("Pengguna dengan aktivitas transaksi dan pembayaran yang tinggi, sering memanfaatkan cash advance dan menggunakan limit kartu kredit secara maksimal.")
+            st.write("Pengguna dengan aktivitas transaksi rendah, lebih banyak menarik tunai, dan membayar saldo kredit hanya sebagian kecil atau minimum.")
         else:
             st.write("Deskripsi cluster ini belum tersedia.")
+        
+        # Tampilkan profil cluster terdekat
+        st.write("Profil Cluster Terdekat:")
+        st.dataframe(cluster_profiles.loc[predicted_cluster])
+
 
 
 
