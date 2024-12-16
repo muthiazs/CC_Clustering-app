@@ -158,9 +158,9 @@ try:
 
     # Pilih fitur numerik untuk clustering
     numeric_features = [
-        'BALANCE', 'PURCHASES', 'ONEOFF_PURCHASES', 'INSTALLMENTS_PURCHASES', 
-        'CASH_ADVANCE', 'PURCHASES_FREQUENCY', 'CASH_ADVANCE_FREQUENCY', 
-        'CREDIT_LIMIT', 'PAYMENTS', 'MINIMUM_PAYMENTS', 'PRC_FULL_PAYMENT'
+        'BALANCE', 'BALANCE_FREQUENCY','PURCHASES', 'ONEOFF_PURCHASES', 'INSTALLMENTS_PURCHASES', 
+        'CASH_ADVANCE', 'PURCHASES_FREQUENCY','ONEOFF_PURCHASES_FREQUENCY', 'PURCHASES_INSTALLMENTS_FREQUENCY', 'CASH_ADVANCE_FREQUENCY', 
+        'CASH_ADVANCE_TRX','PURCHASES_TRX','CREDIT_LIMIT', 'PAYMENTS', 'MINIMUM_PAYMENTS', 'PRC_FULL_PAYMENT','TENURE'
     ]
 
     # Fungsi capping berdasarkan IQR
@@ -246,7 +246,7 @@ try:
     st.pyplot(fig)
 
     # Pilih jumlah cluster optimal berdasarkan nilai Silhouette Score terbaik
-    optimal_k =3
+    optimal_k = k_values[silhouette_scores.index(max(silhouette_scores))]
 
     st.header("📌 Clustering")
     st.write(f"Jumlah cluster optimal adalah {optimal_k} berdasarkan Silhouette Score.")
