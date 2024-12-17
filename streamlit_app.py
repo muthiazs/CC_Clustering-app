@@ -456,7 +456,7 @@ try:
 
         # Tampilkan profil cluster terdekat
         st.write("### 📊 **Profil Cluster Terdekat:**")
-        st.dataframe(cluster_profiles.loc[predicted_cluster])
+        st.dataframe(cluster_profiles.loc[predicted_cluster_mapped])
 
 
 
