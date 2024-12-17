@@ -269,6 +269,11 @@ try:
 
         # Menampilkan profil rata-rata fitur per cluster
         cluster_profiles = df.groupby('Cluster')[numerical_cols].mean()
+
+        # Pemetaan cluster berdasarkan yang sudah dilakukan
+        cluster_profiles = cluster_profiles.rename(index={0: 2, 1: 1, 2: 0})
+
+        # Tampilkan profil cluster yang sudah ter-mapping
         st.dataframe(cluster_profiles)
 
         # 📊 Analisis Segmentasi dan Strategi Promosi untuk Tiap Cluster 🎯
@@ -280,78 +285,80 @@ try:
 
         st.markdown("---")
 
-        # 🧩 Cluster 0: Pengguna dengan Aktivitas Rendah
-        st.subheader("🧩 Cluster 0: Pengguna dengan Aktivitas Rendah")
+        # 🧩 Cluster 0: Pengguna dengan Aktivitas Sedang hingga Tinggi
+        st.subheader("🧩 Cluster 0: Pengguna dengan Aktivitas Sedang hingga Tinggi")
         st.markdown("### 🔍 **Karakteristik:**")
         st.write("""
-        - **Aktivitas Transaksi:** Rendah.  
+        - **Aktivitas Pembelian:** Sedang hingga tinggi.  
+        - **Saldo & Limit Kredit:** Cukup baik.  
+        - **Frekuensi Penggunaan:** Sering melakukan pembelian sekali bayar dan pembayaran rutin.  
+        - **Profil Umum:** Pengguna aktif dengan transaksi rutin dan pengelolaan stabil.
+        """)
+
+        st.markdown("### 🎯 **Strategi Promosi:**")
+        st.write("""
+        - **Insentif untuk Pembelian Rutin:** Berikan poin reward atau cashback untuk pembelian reguler agar pengguna tetap aktif.  
+        - **Diskon untuk Pembelian Sekali Bayar:** Dorong pembelian langsung lunas dengan diskon khusus.  
+        - **Program Loyalitas:** Mendorong konsistensi penggunaan dengan reward berkala.
+        """)
+
+        st.markdown("### 💡 **Contoh Promosi:**")
+        st.write("""
+        - "Dapatkan cashback 10% untuk pembelian langsung di kategori elektronik!"  
+        - "Setiap transaksi di supermarket selama akhir pekan, dapatkan poin reward ekstra!"
+        """)
+
+        st.markdown("---")
+
+        # 🌟 Cluster 1: Pengguna dengan Aktivitas Rendah
+        st.subheader("🌟 Cluster 1: Pengguna dengan Aktivitas Rendah")
+        st.markdown("### 🔍 **Karakteristik:**")
+        st.write("""
+        - **Aktivitas Pembelian:** Rendah.  
         - **Saldo & Limit Kredit:** Rendah.  
-        - **Frekuensi Penggunaan Kartu Kredit:** Kurang aktif.  
-        - **Profil Umum:** Pengguna yang jarang menggunakan kartu kredit dan cenderung pasif.
+        - **Frekuensi Penggunaan:** Jarang menggunakan kartu kredit dan cenderung pasif.  
+        - **Profil Umum:** Pengguna pasif dengan aktivitas transaksi rendah dan jarang memanfaatkan kartu kredit.
         """)
 
         st.markdown("### 🎯 **Strategi Promosi:**")
         st.write("""
-        - **Aktivasi Pengguna:** Program yang mendorong penggunaan kartu kredit secara aktif.  
-        - **Penawaran Diskon & Cashback:** Insentif berupa diskon atau cashback untuk transaksi pertama atau pada kategori tertentu (misalnya, belanja online atau supermarket).  
-        - **Pengingat dan Edukasi:** Mengirimkan edukasi tentang manfaat menggunakan kartu kredit.
+        - **Aktivasi Pengguna Baru:** Promosi yang mendorong pengguna untuk mulai bertransaksi.  
+        - **Diskon dan Cashback Transaksi Pertama:** Insentif khusus untuk pembelian awal.  
+        - **Edukasi Penggunaan Kartu Kredit:** Mengingatkan manfaat menggunakan kartu kredit.
         """)
 
         st.markdown("### 💡 **Contoh Promosi:**")
         st.write("""
-        - "Gunakan kartu kredit Anda untuk pertama kalinya dan dapatkan cashback 10%!"  
-        - "Diskon 20% untuk transaksi di e-commerce pilihan!"
+        - "Gunakan kartu kredit Anda untuk pertama kalinya dan dapatkan cashback 15%!"  
+        - "Diskon 20% untuk transaksi pertama di e-commerce pilihan!"
         """)
 
         st.markdown("---")
 
-        # 🌟 Cluster 1: Pengguna Aktif dan Loyal
-        st.subheader("🌟 Cluster 1: Pengguna Aktif dan Loyal")
+        # ⚖️ Cluster 2: Pengguna Aktif dengan Aktivitas Tinggi
+        st.subheader("⚖️ Cluster 2: Pengguna Aktif dengan Aktivitas Tinggi")
         st.markdown("### 🔍 **Karakteristik:**")
         st.write("""
-        - **Aktivitas Transaksi:** Tinggi.  
+        - **Aktivitas Pembelian:** Tinggi.  
         - **Saldo & Limit Kredit:** Tinggi.  
-        - **Frekuensi Penggunaan:** Sangat aktif.  
-        - **Profil Umum:** Pengguna yang setia dan sering menggunakan kartu kredit untuk berbagai jenis transaksi.
+        - **Frekuensi Penggunaan:** Sering melakukan pembayaran besar dan mengelola saldo besar.  
+        - **Profil Umum:** Pengguna loyal dengan transaksi besar, limit tinggi, dan pengelolaan saldo aktif.
         """)
 
         st.markdown("### 🎯 **Strategi Promosi:**")
         st.write("""
-        - **Program Loyalitas:** Poin reward, diskon eksklusif, atau akses ke layanan premium untuk meningkatkan kepuasan.  
-        - **Penawaran Eksklusif:** Promosi khusus untuk pengguna VIP, seperti akses ke acara tertentu atau layanan concierge.  
-        - **Reward Berkala:** Memberikan bonus atau poin tambahan untuk penggunaan rutin.
+        - **Program Eksklusif untuk VIP:** Penawaran spesial untuk pengguna dengan transaksi tinggi.  
+        - **Reward Double Points:** Insentif tambahan untuk pembelian besar.  
+        - **Akses Layanan Premium:** Berikan fasilitas eksklusif seperti akses ke acara atau layanan concierge.
         """)
 
         st.markdown("### 💡 **Contoh Promosi:**")
         st.write("""
-        - "Dapatkan 2x poin reward untuk setiap transaksi di restoran atau travel!"  
-        - "Akses eksklusif ke layanan premium dengan transaksi bulanan di atas Rp 5.000.000!"
+        - "Dapatkan 2x poin reward untuk transaksi di restoran dan perjalanan!"  
+        - "Transaksi bulanan di atas Rp 10.000.000? Nikmati akses layanan premium gratis!"
         """)
 
         st.markdown("---")
-
-        # ⚖️ Cluster 2: Pengguna dengan Aktivitas Moderat
-        st.subheader("⚖️ Cluster 2: Pengguna dengan Aktivitas Moderat")
-        st.markdown("### 🔍 **Karakteristik:**")
-        st.write("""
-        - **Aktivitas Transaksi:** Sedang.  
-        - **Saldo & Limit Kredit:** Menengah.  
-        - **Frekuensi Penggunaan:** Cukup konsisten, tetapi tidak seaktif Cluster 1.  
-        - **Profil Umum:** Pengguna stabil yang memanfaatkan kartu kredit untuk kebutuhan sehari-hari.
-        """)
-
-        st.markdown("### 🎯 **Strategi Promosi:**")
-        st.write("""
-        - **Promosi Umum & Fleksibel:** Penawaran yang mencakup berbagai jenis transaksi, seperti bunga rendah atau program cicilan.  
-        - **Cashback & Cicilan Ringan:** Mendorong penggunaan lebih sering dengan program pembayaran fleksibel.  
-        - **Penawaran Musiman:** Diskon atau promosi saat periode tertentu (misalnya, akhir tahun atau hari raya).
-        """)
-
-        st.markdown("### 💡 **Contoh Promosi:**")
-        st.write("""
-        - "Nikmati cicilan 0% hingga 12 bulan untuk transaksi elektronik!"  
-        - "Cashback 5% untuk semua transaksi di supermarket selama akhir pekan!"
-        """)
 
     # 🔮 Prediksi Cluster untuk Input Baru
     st.header("🔮 Prediksi Cluster untuk Input Baru")
@@ -364,9 +371,9 @@ try:
             f"{feature}", 
             value=float(df[feature].mean()), 
             step=0.01
-    )
+        )
 
-    # Tombol prediksi
+    # Tombol Prediksi
     if st.button("Prediksi Cluster"):
         # Siapkan input untuk prediksi
         input_data = [input_features[feature] for feature in numerical_cols]
@@ -374,74 +381,77 @@ try:
         # Standarisasi input
         input_scaled = scaler.transform([input_data])
 
-        # Prediksi cluster
+        # Prediksi cluster menggunakan input yang sudah distandarisasi
         predicted_cluster = kmeans.predict(input_scaled)[0]
 
+        # Pemetaan hasil prediksi ke label cluster yang baru
+        predicted_cluster_mapped = cluster_mapping[predicted_cluster]
+
         # Tampilkan hasil prediksi
-        st.success(f"Pelanggan diprediksi masuk ke **Cluster {predicted_cluster}**")
+        st.success(f"Pelanggan diprediksi masuk ke **Cluster {predicted_cluster_mapped}**")
 
         # Deskripsi dan strategi promosi untuk masing-masing cluster
         if predicted_cluster == 0:
-            st.markdown("### 🧩 **Cluster 0: Pengguna dengan Aktivitas Rendah**")
+            st.markdown("### 🧩 **Cluster 0: Pengguna dengan Aktivitas Sedang hingga Tinggi**")
             st.write("""
             **Karakteristik:**
-            - Aktivitas Transaksi: Rendah.  
-            - Saldo & Limit Kredit: Rendah.  
-            - Frekuensi Penggunaan: Kurang aktif.  
-            - Profil Umum: Pengguna yang jarang menggunakan kartu kredit dan cenderung pasif.
+            - Aktivitas Pembelian: Sedang hingga tinggi.  
+            - Saldo & Limit Kredit: Cukup baik.  
+            - Frekuensi Penggunaan: Sering melakukan pembelian sekali bayar dan pembayaran rutin.  
+            - Profil Umum: Pengguna aktif dengan transaksi rutin dan pengelolaan stabil.
             """)
             st.markdown("**🎯 Strategi Promosi:**")
             st.write("""
-            - Program aktivasi untuk mendorong penggunaan kartu kredit.  
-            - Diskon atau cashback untuk transaksi pertama.  
-            - Edukasi mengenai manfaat kartu kredit.
+            - Insentif untuk pembelian rutin.  
+            - Diskon untuk pembelian langsung.  
+            - Program loyalitas dengan reward berkala.
             """)
             st.markdown("**💡 Contoh Promosi:**")
             st.write("""
-            - "Gunakan kartu kredit Anda untuk pertama kalinya dan dapatkan cashback 10%!"  
-            - "Diskon 20% untuk transaksi di e-commerce pilihan!"
+            - "Dapatkan cashback 10% untuk pembelian langsung di kategori elektronik!"  
+            - "Setiap transaksi di supermarket selama akhir pekan, dapatkan poin reward ekstra!"
             """)
 
         elif predicted_cluster == 1:
-            st.markdown("### 🌟 **Cluster 1: Pengguna Aktif dan Loyal**")
+            st.markdown("### 🌟 **Cluster 1: Pengguna dengan Aktivitas Rendah**")
             st.write("""
             **Karakteristik:**
-            - Aktivitas Transaksi: Tinggi.  
-            - Saldo & Limit Kredit: Tinggi.  
-            - Frekuensi Penggunaan: Sangat aktif.  
-            - Profil Umum: Pengguna setia yang sering bertransaksi dengan kartu kredit.
+            - Aktivitas Pembelian: Rendah.  
+            - Saldo & Limit Kredit: Rendah.  
+            - Frekuensi Penggunaan: Jarang menggunakan kartu kredit dan cenderung pasif.  
+            - Profil Umum: Pengguna pasif dengan aktivitas transaksi rendah dan jarang memanfaatkan kartu kredit.
             """)
             st.markdown("**🎯 Strategi Promosi:**")
             st.write("""
-            - Program loyalitas dan reward eksklusif.  
-            - Akses ke layanan premium untuk pelanggan VIP.  
-            - Bonus poin untuk penggunaan rutin.
+            - Aktivasi pengguna baru.  
+            - Diskon dan cashback untuk transaksi pertama.  
+            - Edukasi mengenai penggunaan kartu kredit.
             """)
             st.markdown("**💡 Contoh Promosi:**")
             st.write("""
-            - "Dapatkan 2x poin reward untuk transaksi di restoran atau travel!"  
-            - "Akses eksklusif ke layanan premium dengan transaksi di atas Rp 5.000.000!"
+            - "Gunakan kartu kredit Anda untuk pertama kalinya dan dapatkan cashback 15%!"  
+            - "Diskon 20% untuk transaksi pertama di e-commerce pilihan!"
             """)
 
         elif predicted_cluster == 2:
-            st.markdown("### ⚖️ **Cluster 2: Pengguna dengan Aktivitas Moderat**")
+            st.markdown("### ⚖️ **Cluster 2: Pengguna Aktif dengan Aktivitas Tinggi**")
             st.write("""
             **Karakteristik:**
-            - Aktivitas Transaksi: Sedang.  
-            - Saldo & Limit Kredit: Menengah.  
-            - Frekuensi Penggunaan: Cukup konsisten.  
-            - Profil Umum: Pengguna stabil yang menggunakan kartu kredit untuk kebutuhan sehari-hari.
+            - Aktivitas Pembelian: Tinggi.  
+            - Saldo & Limit Kredit: Tinggi.  
+            - Frekuensi Penggunaan: Sering melakukan pembayaran besar dan mengelola saldo besar.  
+            - Profil Umum: Pengguna loyal dengan transaksi besar, limit tinggi, dan pengelolaan saldo aktif.
             """)
             st.markdown("**🎯 Strategi Promosi:**")
             st.write("""
-            - Promosi fleksibel seperti bunga rendah atau cicilan ringan.  
-            - Cashback untuk transaksi reguler.  
-            - Diskon musiman saat periode tertentu.
+            - Program eksklusif untuk VIP.  
+            - Reward double points untuk transaksi besar.  
+            - Akses ke layanan premium seperti layanan concierge.
             """)
             st.markdown("**💡 Contoh Promosi:**")
             st.write("""
-            - "Nikmati cicilan 0% hingga 12 bulan untuk transaksi elektronik!"  
-            - "Cashback 5% untuk semua transaksi di supermarket selama akhir pekan!"
+            - "Dapatkan 2x poin reward untuk transaksi di restoran dan perjalanan!"  
+            - "Transaksi bulanan di atas Rp 10.000.000? Nikmati akses layanan premium gratis!"
             """)
 
         # Tampilkan profil cluster terdekat
