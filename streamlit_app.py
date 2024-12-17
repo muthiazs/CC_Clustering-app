@@ -391,7 +391,7 @@ try:
         st.success(f"Pelanggan diprediksi masuk ke **Cluster {predicted_cluster_mapped}**")
 
         # Deskripsi dan strategi promosi untuk masing-masing cluster
-        if predicted_cluster == 0:
+        if predicted_cluster_mapped == 0:
             st.markdown("### 🧩 **Cluster 0: Pengguna dengan Aktivitas Sedang hingga Tinggi**")
             st.write("""
             **Karakteristik:**
@@ -412,7 +412,7 @@ try:
             - "Setiap transaksi di supermarket selama akhir pekan, dapatkan poin reward ekstra!"
             """)
 
-        elif predicted_cluster == 1:
+        elif predicted_cluster_mapped == 1:
             st.markdown("### 🌟 **Cluster 1: Pengguna dengan Aktivitas Rendah**")
             st.write("""
             **Karakteristik:**
@@ -433,7 +433,7 @@ try:
             - "Diskon 20% untuk transaksi pertama di e-commerce pilihan!"
             """)
 
-        elif predicted_cluster == 2:
+        elif predicted_cluster_mapped == 2:
             st.markdown("### ⚖️ **Cluster 2: Pengguna Aktif dengan Aktivitas Tinggi**")
             st.write("""
             **Karakteristik:**
