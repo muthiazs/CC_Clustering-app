@@ -388,7 +388,7 @@ try:
         predicted_cluster_mapped = cluster_mapping[predicted_cluster]
 
         # Tampilkan hasil prediksi
-        st.success(f"Pelanggan diprediksi masuk ke **Cluster {predicted_cluster_mapped}**")
+        st.success(f"Pengguna diprediksi masuk ke **Cluster {predicted_cluster_mapped}**")
 
         # Deskripsi dan strategi promosi untuk masing-masing cluster
         if predicted_cluster_mapped == 0:
